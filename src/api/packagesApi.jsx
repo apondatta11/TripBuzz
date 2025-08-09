@@ -1,5 +1,5 @@
 export const packagesCreatedByPromise=(email,accessToken)=>{
-    return fetch(`http://localhost:4000/packages?email=${email}`, {
+    return fetch(`https://cse-2100-project-server.vercel.app/packages?email=${email}`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }

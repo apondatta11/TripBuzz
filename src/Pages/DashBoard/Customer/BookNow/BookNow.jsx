@@ -20,7 +20,7 @@
 //     const [listing, setListing] = useState(null);
 
 //     useEffect(() => {
-//         fetch(`http://localhost:4000/packages/${id}`)
+//         fetch(`https://cse-2100-project-server.vercel.app/packages/${id}`)
 //         .then((res) => res.json())
 //         .then((data) => {
 //             setListing(data);
@@ -52,7 +52,7 @@
 //         };
 
 //         console.log(booking);
-//             axios.post('http://localhost:4000/bookings', booking)
+//             axios.post('https://cse-2100-project-server.vercel.app/bookings', booking)
 //             .then(res => {
 //                 console.log(res.data)
 //                 if(res.data.insertedId){
@@ -168,7 +168,7 @@ import { useEffect, useState } from 'react';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import useAuth from '@/Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { Dialog } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { Button } from '@/components/ui/button';
 import Loading from '@/Components/Loading/Loading';
 
@@ -198,58 +198,41 @@ const BookNow = () => {
     const handleBooking = () => {
         const bookingInfo = {
             packageId: id,
+            tourName: packageData.tourName,
+            price: packageData.price,
             userEmail: user.email,
             userName: user.displayName,
             userImage: user.photoURL,
             specialNote,
-            status: 'pending',
-            bookingDate: date
+            payment_status: 'pending',
+            bookingDate: date,
         };
 
         axiosSecure.post('/bookings', bookingInfo)
             .then(res => {
+                console.log(res.data);
                 setBookingId(res.data.insertedId);
-                setIsModalOpen(true);
+            axiosSecure.get(`/bookings/${res.data.insertedId}`)
+                .then(response => {
+                    const booking = response.data;
+                    if (booking.payment_status === 'paid') {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Already Paid',
+                            text: 'You have already paid for this package.',
+                            confirmButtonColor: '#3085d6'
+                        });
+                    } else {
+                        setIsModalOpen(true);
+                    }
+                });
             })
             .catch(err => {
-                if (err.response?.data?.error === 'DUPLICATE_BOOKING') {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Already Booked',
-                        text: 'You have already booked this package. Check your bookings!',
-                        confirmButtonText: 'View My Bookings'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate('/mybookings');
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Booking failed',
-                        text: err.response?.data?.message || err.message
-                    });
-                }
+                console.log(err);
+                
             });
     };
-    // const handleCreatePayment = async () => {
-    //     // now saving the payment in the database
-    //     const payment = {
-    //         name: user.displayName,
-    //         email: user.email,
-    //         price: price,
-    //         transactionId: "",
-    //         date: date,
-    //         tourId: id,
-    //         status: "pending",
-    //     };
-    //     console.log("payment", payment);
-    //     const response = await axiosSecure.post("/create-ssl-payment", payment);
-    //     if (response.data?.gatewayUrl) {
-    //         window.location.replace(response.data.gatewayUrl);
-    //     }
-    //     console.log("payment response", response.data);
-    // }
+
 
     const goToPayment = async() => {
         setIsModalOpen(false);
@@ -262,7 +245,7 @@ const BookNow = () => {
             transactionId: "",
             date: date,
             tourId: id,
-            bookingId: bookingId, // Add booking ID to link payment with booking
+            bookingId: bookingId, 
             status: "pending",
         };
         console.log("payment", payment);
@@ -373,14 +356,14 @@ const BookNow = () => {
 
             <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
-                    <Dialog.Panel className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
-                        <Dialog.Title className="text-xl font-bold text-green-600 mb-2">Booking Confirmed!</Dialog.Title>
+                    <DialogPanel className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full">
+                        <DialogTitle className="text-xl font-bold text-green-600 mb-2">Booking Confirmed!</DialogTitle>
                         <p className="mb-4">Would you like to proceed to payment now?</p>
                         <div className="flex justify-end gap-3">
                             <Button variant="outline" onClick={goToMyBookings}>No, later</Button>
                             <Button onClick={goToPayment}>Yes, proceed</Button>
                         </div>
-                    </Dialog.Panel>
+                    </DialogPanel>
                 </div>
             </Dialog>
         </div>

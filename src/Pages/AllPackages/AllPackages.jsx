@@ -8,7 +8,7 @@ const AllPackages = () => {
     const [filteredPackages, setFilteredPackages] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/packages')
+        fetch('https://cse-2100-project-server.vercel.app/packages')
             .then(res => res.json())
             .then(data => {
                 setPackages(data);
@@ -21,16 +21,9 @@ const AllPackages = () => {
             });
     }, []);
 
-    useEffect(() => {
-        const results = packages.filter(pkg =>
-            pkg.tourName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pkg.description.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPackages(results);
-    }, [searchTerm, packages]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-base-100 to-base-200 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Hero Section */}
                 <div className="text-center mb-16">
@@ -40,22 +33,7 @@ const AllPackages = () => {
                     <p className="text-xl text-base-content/80 max-w-3xl mx-auto">
                         Explore our curated collection of travel packages designed to create unforgettable experiences.
                     </p>
-                    
-                    {/* Search Bar */}
-                    <div className="mt-8 max-w-md mx-auto relative">
-                        <input
-                            type="text"
-                            placeholder="Search packages..."
-                            className="w-full px-6 py-3 rounded-full border border-base-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button className="absolute right-2 top-2 btn btn-primary btn-circle">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                    </div>
+
                 </div>
 
                 {loading ? (
@@ -66,17 +44,6 @@ const AllPackages = () => {
                     </div>
                 ) : (
                     <>
-                        {/* Filter Tags (optional) */}
-                        <div className="flex flex-wrap justify-center gap-2 mb-8">
-                            {['All', 'Adventure', 'Luxury', 'Family', 'Cultural'].map((tag) => (
-                                <button
-                                    key={tag}
-                                    className="px-4 py-2 rounded-full border border-base-300 hover:bg-primary hover:text-primary-content transition-colors"
-                                >
-                                    {tag}
-                                </button>
-                            ))}
-                        </div>
 
                         {/* Packages Grid */}
                         {filteredPackages.length > 0 ? (
@@ -95,7 +62,7 @@ const AllPackages = () => {
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                                             <div className="absolute bottom-0 left-0 p-6">
                                                 <h2 className="text-2xl font-bold text-white">{pkg.tourName}</h2>
-                                                <div className="badge badge-primary mt-2">${pkg.price}</div>
+                                                <div className="badge badge-primary mt-2 p-2">৳{pkg.price}</div>
                                             </div>
                                         </div>
                                         <div className="bg-base-100 p-6">
@@ -144,3 +111,4 @@ const AllPackages = () => {
 };
 
 export default AllPackages;
+

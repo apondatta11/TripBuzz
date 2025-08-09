@@ -85,18 +85,22 @@ const Navbar = () => {
     };
 
     const links = <>
-        <NavLink to="/" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
+        <NavLink to="/" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-border hover:bg-primary hover:border-border hover:text-background'}`}>
             <li>Home</li>
         </NavLink>
-        <NavLink to="/allpackages" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
+        <NavLink to="/dashboard" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-border hover:bg-primary hover:border-border hover:text-background'}`}>
+            <li>Dashboard</li>
+        </NavLink>
+        <NavLink to="/allpackages" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-border hover:bg-primary hover:border-border hover:text-background'}`}>
             <li>All Packages</li>
         </NavLink>
-        <NavLink to="/mybookings" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
+        {/* <NavLink to="/mybookings" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
             <li>My Bookings</li>
-        </NavLink>
-        <NavLink to="/about" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
+        </NavLink> */}
+        {/* <NavLink to="/about" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
             <li>About Us</li>
-        </NavLink>
+        </NavLink> */}
+
     </>
     const links2 = <>
         <NavLink to="/addpackages" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
@@ -105,7 +109,7 @@ const Navbar = () => {
         <NavLink to="/manage-packages" className={({ isActive }) => `m-2 p-2 rounded-sm rounded-b-none border-b-2 ${isActive ? ' border-black font-extrabold' : 'border-transparent hover:bg-sky-100 hover:border-black'}`}>
             <li>Manage Package</li>
         </NavLink>
-        <NavLink onClick={handleLogOut} >
+        <NavLink onClick={handleLogOut} className='text-black'>
             <li>Logout</li>
         </NavLink>
     </>
@@ -127,10 +131,13 @@ const Navbar = () => {
                     </div>
                 </div>
                 {/* the logo & title */}
-                <div className='flex gap-1 justify-center items-center sm:gap-2 lg:gap-3 xl:gap-5'>
-                    <GiWaveSurfer size={30} />
-                    <h1 className='font-extrabold text-lg sm:text-2xl cursor-pointer '>TripBuzz</h1>
-                </div>
+                <Link to="/" className="flex items-center gap-2 sm:gap-3 lg:gap-4 xl:gap-5">
+                    <div className='flex gap-1 justify-center items-center sm:gap-2 lg:gap-3 xl:gap-5'>
+                        <GiWaveSurfer size={30} />
+                        <h1 className='font-extrabold text-lg sm:text-2xl cursor-pointer '>TripBuzz</h1>
+                    </div>
+                </Link>
+
                 {/* links */}
                 <div className="hidden xl:flex">
                     <ul className="menu menu-horizontal px-1 font-medium text-lg">
@@ -165,22 +172,6 @@ const Navbar = () => {
                                         d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
                                 </svg>
                             </label>
-                            {/* <div className="relative group flex flex-row items-center gap-2 sm:gap-5">
-                                <img
-                                    className="h-8 w-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-gray-300 cursor-pointer"
-                                    src={user.photoURL}
-                                    alt=""
-                                />
-                                <div className="absolute -top-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition bg-gray-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-50">
-                                    {user.displayName || 'Anonymous'}
-                                </div>
-                            </div>
-                            <button
-                                onClick={handleLogOut}
-                                className="btn btn-accent text-white px-1 sm:px-3 lg:px-4 xl:px-5  btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-                            >
-                                LogOut
-                            </button> */}
 
                             <div className="flex gap-2">
                                 <div className="dropdown dropdown-center">
@@ -188,7 +179,7 @@ const Navbar = () => {
                                         <div className="w-10 rounded-full">
                                             <img
                                                 alt="Tailwind CSS Navbar component"
-                                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                                src={user.photoURL} />
                                         </div>
                                     </div>
                                     <ul

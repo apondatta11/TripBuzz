@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='mt-256'>
-            <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+        <div className='mt-24'>
+            <footer className="footer sm:footer-horizontal bg-base-300 border-border text-base-content p-10">
                 <aside>
                     <svg
                         width="50"
@@ -43,7 +43,6 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
-            <p>&copy; 2023 TripBuzz. All rights reserved.</p>
         </div>
     );
 };

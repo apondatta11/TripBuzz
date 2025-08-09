@@ -20,135 +20,145 @@ import DashboardHome from "@/Pages/DashboardHome.jsx/DashboardHome";
 import AdminRoute from "@/Routes/AdminRoute";
 import MerchantRoute from "@/Routes/MerchantRoute";
 import Payment from "@/Pages/Payment/Payment";
+import PaymentHistory from "@/Pages/Payment/PaymentHistory";
+import BeAMerchant from "@/Pages/DashBoard/Customer/BeAMerchant/BeAMerchant";
+import MakeAdmin from "@/Pages/DashBoard/Admin/MakeAdmin/MakeAdmin";
+import MyEarnings from "@/Pages/DashBoard/Merchant/MyEarnings/MyEarnings";
+import PendingMerchants from "@/Pages/DashBoard/Admin/PendingMerchant/PendingMerchant";
+import ActiveMerchants from "@/Pages/DashBoard/Admin/ActiveMerchants/ActiveMerchants";
+import PackageApprovals from "@/Pages/DashBoard/Admin/PackageApprovals/PackageApprovals";
+import PendingPackages from "@/Pages/DashBoard/Merchant/PendingPackages/PendingPackages";
+import ApprovedPackages from "@/Pages/DashBoard/Merchant/ApprovedPackages/ApprovedPackages";
+import UpdateMerchantProfile from "@/Pages/DashBoard/Merchant/UpdateMerchantProfile/UpdateMerchantProfile";
+import PayNow from "@/Pages/DashBoard/Customer/PayNow/PayNow";
 
 
 
 export const router = createBrowserRouter([
-{
-    path: "/",
-    Component: Root,
-    children: [
-        {
-            index: true,
-            Component: HomeLayout,
-        },
-        {
-            path: "/addpackages",
-            element: <PrivateRoute>
-                <AddPackages></AddPackages>
-            </PrivateRoute>,
-        },
-        {
-            path: '/allpackages',
-            element: 
-                <AllPackages></AllPackages>,
-        },
-        {
-            path: '/packages/:id',
-            element: <PrivateRoute>
-                <Details></Details>
-            </PrivateRoute>,
-        },
-        {
-            path:'/mybookings',
-            element:<PrivateRoute><MyBookings></MyBookings></PrivateRoute>
-        },
-        {
-            path: '/manage-packages',
-            element: <PrivateRoute>
-                <ManagePackages></ManagePackages>
-            </PrivateRoute>
-        },
-        {
-            path: '/bookings/:id',
-            element: <PrivateRoute>
-                <BookNow></BookNow>
-            </PrivateRoute>
-        }
-    ],
-},
-{
-    path: "/auth",
-    Component: AuthLayout,
-    children: [
-        {
-            path: "/auth/login",
-            Component: Login,
-        },
-        {
-            path: "/auth/register",
-            Component: Register,
-        },
-        {
-            path: "/auth/forgot-password",
-            Component: ForgotPassword,
-        }
-    ]
-},
-  {
-    path: '/dashboard',
-    element: <PrivateRoute>
-      <DashboardLayout></DashboardLayout>
-    </PrivateRoute>,
-    children: [
-      {
-        index: true,
-        Component: DashboardHome
-      },
-      {
-        path: 'myBookings',
-        element:<MyBookings></MyBookings>
-      },
-      {
-        path: 'payment/:tourId',
-        Component: Payment
-      },
-    //   {
-    //     path: 'paymentHistory',
-    //     Component: PaymentHistory
-    //   },
-    //   {
-    //     path: 'track',
-    //     Component: TrackParcel
-    //   },
-      // rider only routes
-    //   {
-    //     path: 'pending-deliveries',
-    //     element: <MerchantRoute><PendingDeliveries></PendingDeliveries></MerchantRoute>
-    //   },
-    //   {
-    //     path: 'completed-deliveries',
-    //     element: <MerchantRoute>
-    //       <CompletedDeliveries></CompletedDeliveries>
-    //     </MerchantRoute>
-    //   },
-    //   {
-    //     path: 'my-earnings',
-    //     element: <MerchantRoute>
-    //       <MyEarnings></MyEarnings>
-    //     </MerchantRoute>
-    //   },
-      // admin only routes
-    //   {
-    //     path: 'assign-rider',
-    //     element: <AdminRoute><AssignRider></AssignRider></AdminRoute>
-    //   },
-    //   {
-    //     path: 'pending-riders',
-    //     element: <AdminRoute><PendingRiders></PendingRiders></AdminRoute>
-    //   },
-    //   {
-    //     path: 'active-riders',
-    //     element: <AdminRoute><ActiveRiders></ActiveRiders></AdminRoute>
-    //   },
-    //   {
-    //     path: 'makeAdmin',
-    //     element: <AdminRoute><MakeAdmin></MakeAdmin></AdminRoute>
-    //   }
-    ]
-  },
-{
-    path: "*",
-    element: <ErrorPage></ErrorPage>
-},
+    {
+        path: "/",
+        Component: Root,
+        children: [
+            {
+                index: true,
+                Component: HomeLayout,
+            },
+            {
+                path: "/addpackages",
+                element: <PrivateRoute>
+                    <AddPackages></AddPackages>
+                </PrivateRoute>,
+            },
+            {
+                path: '/allpackages',
+                element:
+                    <AllPackages></AllPackages>,
+            },
+            {
+                path: '/packages/:id',
+                element: <PrivateRoute>
+                    <Details></Details>
+                </PrivateRoute>,
+            },
+            {
+                path: '/mybookings',
+                element: <PrivateRoute><MyBookings></MyBookings></PrivateRoute>
+            },
+            {
+                path: '/manage-packages',
+                element: <PrivateRoute>
+                    <ManagePackages></ManagePackages>
+                </PrivateRoute>
+            },
+            {
+                path: '/bookings/:id',
+                element: <PrivateRoute>
+                    <BookNow></BookNow>
+                </PrivateRoute>
+            }
+        ],
+    },
+    {
+        path: "/auth",
+        Component: AuthLayout,
+        children: [
+            {
+                path: "/auth/login",
+                Component: Login,
+            },
+            {
+                path: "/auth/register",
+                Component: Register,
+            },
+            {
+                path: "/auth/forgot-password",
+                Component: ForgotPassword,
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoute>,
+        children: [
+            {
+                index: true,
+                Component: DashboardHome
+            },
+            {
+                path: 'myBookings',
+                element: <MyBookings></MyBookings>
+            },
+            {
+                path:'payment',
+                Component:PayNow,
+            },
+
+            {
+                path: 'paymentHistory',
+                Component: PaymentHistory
+            },
+            {
+                path: 'be-a-merchant',
+                Component: BeAMerchant,
+            },
+            {
+                path:'update-merchant-profile',
+                Component: UpdateMerchantProfile,
+            },
+
+            // admin only routes
+
+            {
+                path:'pending-packages',
+                Component:PendingPackages
+            },
+            {
+                path:'approved-packages',
+                Component:ApprovedPackages
+            },
+            {
+                path:'package-approvals',
+                Component:PackageApprovals,
+            },
+            {
+                path: 'pending-merchants',
+                element: <PendingMerchants></PendingMerchants>
+            },
+              {
+                path: 'active-merchants',
+                element: <ActiveMerchants></ActiveMerchants>
+              },
+            {
+                path: 'makeAdmin',
+                element: <MakeAdmin></MakeAdmin>
+
+            }
+        ]
+    },
+    {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
+    },
 ]);

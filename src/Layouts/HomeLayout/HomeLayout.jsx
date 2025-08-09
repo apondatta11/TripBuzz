@@ -4,6 +4,7 @@ import { AuthContext } from '../../Provider/AuthContext';
 import FeaturedPackages from '../../Pages/Home/FeaturedPackages';
 import WhyChooseUs from '../../Pages/Home/WhyChooseUs';
 import Testimonials from '../../Pages/Home/Testimonials';
+import FAQs from '@/Pages/Home/FAQ';
 
 const HomeLayout = () => {
         const { user } = use(AuthContext);
@@ -11,7 +12,7 @@ const HomeLayout = () => {
     const [loading, setLoading] = useState(true);
 
     React.useEffect(() => {
-        fetch('http://localhost:4000/packages?limit=6')
+        fetch('https://cse-2100-project-server.vercel.app/packages?limit=6')
             .then(res => res.json())
             .then(data => {
                 setFeaturedPackages(data);
@@ -25,7 +26,7 @@ const HomeLayout = () => {
                 packages={featuredPackages}
                 loading={loading}></FeaturedPackages>
                 <WhyChooseUs></WhyChooseUs>
-                <Testimonials></Testimonials>
+                <FAQs></FAQs>
         </div>
     );
 };

@@ -10,7 +10,7 @@ const ManagePackages = () => {
   const [editingPackage, setEditingPackage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/packages?email=${user.email}`) 
+    fetch(`https://cse-2100-project-server.vercel.app/packages?email=${user.email}`) 
       .then(res => res.json())
       .then(data => setPackages(data));
   }, []);
@@ -26,7 +26,7 @@ const ManagePackages = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/packages/${id}`, {
+        fetch(`https://cse-2100-project-server.vercel.app/packages/${id}`, {
           method: 'DELETE',
         })
           .then(res => res.json())
@@ -146,7 +146,7 @@ const ManagePackages = () => {
         guidePhoto: form.guidePhoto.value,
       };
 
-      fetch(`http://localhost:4000/packages/${editingPackage._id}`, {
+      fetch(`https://cse-2100-project-server.vercel.app/packages/${editingPackage._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updated),
